@@ -1,0 +1,12 @@
+.page-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
+}
+
+ion-card {
+  width: 90%;
+  max-width: 400px;
+}
