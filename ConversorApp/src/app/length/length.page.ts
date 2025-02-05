@@ -30,11 +30,14 @@ export class LengthPage {
     if (this.inputValue === null) {
       return;
     }
-
-    const valueInMeters = this.inputValue * this.unitConversions[this.fromUnit]; // Converter para metros
-    const convertedValue = valueInMeters / this.unitConversions[this.toUnit]; // Converter para unidade desejada
-
-    this.convertedValue = parseFloat(convertedValue.toFixed(4)); // Resultado formatado
+  
+    // Converter o valor para metros primeiro
+    const valueInMeters = this.inputValue / this.unitConversions[this.fromUnit];
+  
+    // Converter de metros para a unidade desejada
+    const convertedValue = valueInMeters * this.unitConversions[this.toUnit];
+  
+    this.convertedValue = parseFloat(convertedValue.toFixed(4)); // Formatar resultado
     this.updateUnitSymbol();
   }
 

@@ -39,7 +39,7 @@
       <ion-button expand="full" (click)="convertTemperature()">Converter</ion-button>
 
       <ion-card *ngIf="convertedValue !== null">
-        <ion-card-content>
+        <ion-card-content class="result-container">
           <strong>Resultado:</strong> {{ convertedValue }} {{ unitSymbol }}
         </ion-card-content>
       </ion-card>

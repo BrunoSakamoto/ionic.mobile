@@ -1,39 +1,55 @@
-import { Component } from '@angular/core';
-import { IonicModule } from '@ionic/angular';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { IonicModule } from '@ionic/angular';
+import { CurrencyService } from '../services/currency.service';
 
 @Component({
   selector: 'app-coin',
   templateUrl: './coin.page.html',
   styleUrls: ['./coin.page.scss'],
-  standalone: true, // Continua sendo standalone
-  imports: [IonicModule, CommonModule, FormsModule],
+  standalone: true,
+  imports: [CommonModule, FormsModule, IonicModule] // ✅ Importando módulos do Ionic corretamente
 })
-export class CoinPage {
-  value: number = 0;
+export class CoinPage implements OnInit {
+  inputValue: number | null = null;
+  fromCurrency: string = 'USD';
+  toCurrency: string = 'EUR';
   convertedValue: number | null = null;
-  currencies = [
-    { name: 'Dólar Americano', code: 'USD', rate: 0.19, symbol: '$' },
-    { name: 'Euro', code: 'EUR', rate: 0.17, symbol: '€' },
-    { name: 'Libra Esterlina', code: 'GBP', rate: 0.15, symbol: '£' },
-    { name: 'Iene Japonês', code: 'JPY', rate: 25.65, symbol: '¥' },
-    { name: 'Peso Argentino', code: 'ARS', rate: 40.0, symbol: '$' },
-  ];
-  selectedCurrencyRate: number = 0;
-  selectedCurrencySymbol: string = '';
+  currencySymbol: string = '€';
+  exchangeRates: { [key: string]: number } = {};
 
-  convertCurrency(): void {
-    if (this.selectedCurrencyRate <= 0) {
-      console.error('Selecione uma moeda válida!');
-      this.convertedValue = null;
-      return;
-    }
-    this.convertedValue = this.value * this.selectedCurrencyRate;
+  currencySymbols: { [key: string]: string } = {
+    'USD': '$',
+    'EUR': '€',
+    'GBP': '£',
+    'BRL': 'R$',
+    'JPY': '¥'
+  };
+
+  constructor(private currencyService: CurrencyService) {}
+
+  ngOnInit() {
+    this.loadExchangeRates();
   }
 
-  onCurrencyChange(currency: { rate: number; symbol: string }): void {
-    this.selectedCurrencyRate = currency.rate;
-    this.selectedCurrencySymbol = currency.symbol;
+  loadExchangeRates() {
+    this.currencyService.getExchangeRates().subscribe(data => {
+      this.exchangeRates = data.conversion_rates;
+    }, error => {
+      console.error('Erro ao carregar taxas de câmbio', error);
+    });
+  }
+
+  convertCurrency() {
+    if (this.inputValue === null || !this.exchangeRates[this.fromCurrency] || !this.exchangeRates[this.toCurrency]) {
+      return;
+    }
+
+    const valueInUSD = this.inputValue / this.exchangeRates[this.fromCurrency];
+    const convertedValue = valueInUSD * this.exchangeRates[this.toCurrency];
+
+    this.convertedValue = parseFloat(convertedValue.toFixed(2));
+    this.currencySymbol = this.currencySymbols[this.toCurrency] || ''; 
   }
 }
