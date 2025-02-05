@@ -1,13 +1,48 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>temperature</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Conversor de Temperatura</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">temperature</ion-title>
-    </ion-toolbar>
-  </ion-header>
-</ion-content>
+<div class="page-container">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Converter Temperatura</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="floating">Temperatura</ion-label>
+        <ion-input type="number" [(ngModel)]="inputValue"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>De:</ion-label>
+        <ion-select [(ngModel)]="fromUnit">
+          <ion-select-option value="C">Celsius (°C)</ion-select-option>
+          <ion-select-option value="F">Fahrenheit (°F)</ion-select-option>
+          <ion-select-option value="K">Kelvin (K)</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Para:</ion-label>
+        <ion-select [(ngModel)]="toUnit">
+          <ion-select-option value="C">Celsius (°C)</ion-select-option>
+          <ion-select-option value="F">Fahrenheit (°F)</ion-select-option>
+          <ion-select-option value="K">Kelvin (K)</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-button expand="full" (click)="convertTemperature()">Converter</ion-button>
+
+      <ion-card *ngIf="convertedValue !== null">
+        <ion-card-content>
+          <strong>Resultado:</strong> {{ convertedValue }} {{ unitSymbol }}
+        </ion-card-content>
+      </ion-card>
+    </ion-card-content>
+  </ion-card>
+</div>

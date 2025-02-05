@@ -1,12 +1,14 @@
+<ion-toolbar>
+  <ion-buttons slot="start">
+    <ion-menu-button></ion-menu-button>
+  </ion-buttons>
+  <ion-title>Conversor de Moedas</ion-title>
+</ion-toolbar>
+
 <div class="page-container">
-  <ion-card>
+  <ion-card class="converter-card">
     <ion-card-header>
-      <ion-toolbar>
-        <ion-buttons slot="start">
-          <ion-menu-button></ion-menu-button>
-        </ion-buttons>
-        <ion-title>Conversor de Moedas</ion-title>
-      </ion-toolbar>
+      <ion-card-title>Converter Moedas</ion-card-title>
     </ion-card-header>
     <ion-card-content>
       <ion-item>
@@ -33,7 +35,7 @@
         Converter
       </ion-button>
 
-      <div *ngIf="convertedValue !== null">
+      <div *ngIf="convertedValue !== null" class="converted-value">
         <h2>Valor convertido: {{ selectedCurrencySymbol }}{{ convertedValue | number:'1.2-2' }}</h2>
       </div>
     </ion-card-content>

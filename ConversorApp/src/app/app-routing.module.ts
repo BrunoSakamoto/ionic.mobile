@@ -10,7 +10,8 @@ const routes: Routes = [
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'
-  },  {
+  },
+  {
     path: 'length',
     loadChildren: () => import('./length/length.module').then( m => m.LengthPageModule)
   },

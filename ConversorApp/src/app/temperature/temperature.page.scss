@@ -1,0 +1,31 @@
+.page-container {
+  display: flex;
+  justify-content: center; // Centraliza horizontalmente
+  align-items: center; // Centraliza verticalmente
+  height: 100vh; // Faz o container ocupar a altura total da viewport
+  padding: 20px; // Adiciona um pouco de padding ao redor do conteúdo
+}
+
+ion-card {
+  width: 100%; // Faz o card ocupar a largura total do container
+  max-width: 500px; // Define uma largura máxima para o card
+  padding: 20px; // Adiciona padding interno ao card
+}
+
+ion-card-title {
+  font-size: 24px; // Aumenta o tamanho da fonte do título
+  text-align: center; // Centraliza o texto do título
+}
+
+ion-item {
+  margin-bottom: 20px; // Adiciona espaço entre os itens
+}
+
+ion-button {
+  font-size: 18px; // Aumenta o tamanho da fonte do botão
+}
+
+h2 {
+  text-align: center; // Centraliza o texto do valor convertido
+  font-size: 20px; // Aumenta o tamanho da fonte do valor convertido
+}
